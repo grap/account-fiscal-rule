@@ -60,6 +60,14 @@ class AccountProductFiscalClassification(models.Model):
             ('type_tax_use', 'in', ['sale', 'all'])]""",
     )
 
+    usage_group_id = fields.Many2one(
+        comodel_name="res.groups",
+        string="Usage Group",
+        help="If defined"
+        ", the user should be member to this group, to use this fiscal"
+        " classification when creating or updating products",
+    )
+
     # Compute Section
     def _compute_product_tmpl_info(self):
         for record in self:

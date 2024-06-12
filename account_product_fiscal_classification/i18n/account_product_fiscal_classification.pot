@@ -180,6 +180,14 @@ msgid "ID"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
+msgid ""
+"If defined, the user should be member to this group, to use this fiscal "
+"classification when creating or updating products"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
 msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification Template "
@@ -364,6 +372,12 @@ msgid "Taxes"
 msgstr ""
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
+msgid "Usage Group"
+msgstr ""
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Vendor Taxes"
@@ -381,6 +395,15 @@ msgstr ""
 msgid ""
 "You can not create or write products with 'Customer Taxes' or 'Supplier Taxes'\n"
 ".Please, use instead the 'Fiscal Classification' field."
+msgstr ""
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
+#, python-format
+msgid ""
+"You can not use the fiscal classification '%(classification_name)s' because "
+"you're not member of the group '%(group_name)s'."
 msgstr ""
 
 #. module: account_product_fiscal_classification

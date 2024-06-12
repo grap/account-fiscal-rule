@@ -184,6 +184,14 @@ msgid "ID"
 msgstr "ID"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
+#: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
+msgid ""
+"If defined, the user should be member to this group, to use this fiscal "
+"classification when creating or updating products"
+msgstr "Si défini, l'utilisateur devra faire parti de ce groupe pour pouvoir utiliser cette catégorie fiscale, quand il crééra ou mettra à jour des articles"
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,help:account_product_fiscal_classification.field_account_product_fiscal_classification_template__active
 msgid ""
 "If unchecked, it will allow you to hide the Fiscal Classification Template "
@@ -384,6 +392,12 @@ msgid "Taxes"
 msgstr "Taxes"
 
 #. module: account_product_fiscal_classification
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification__usage_group_id
+#: model:ir.model.fields,field_description:account_product_fiscal_classification.field_account_product_fiscal_classification_template__usage_group_id
+msgid "Usage Group"
+msgstr "Groupe d'utilisation"
+
+#. module: account_product_fiscal_classification
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_product__supplier_taxes_id
 #: model:ir.model.fields,field_description:account_product_fiscal_classification.field_product_template__supplier_taxes_id
 msgid "Vendor Taxes"
@@ -406,6 +420,17 @@ msgstr ""
 "Vous ne pouvez pas créer ou modifier des articles pour les champs 'Taxes à "
 "la vente' et 'Taxes fournisseurs'.\n"
 " Veuillez utiliser le champ 'Catégorie fiscale'."
+
+#. module: account_product_fiscal_classification
+#. odoo-python
+#: code:addons/account_product_fiscal_classification/models/product_template.py:0
+#, python-format
+msgid ""
+"You can not use the fiscal classification '%(classification_name)s' because "
+"you're not member of the group '%(group_name)s'."
+msgid ""
+"vous ne pouvez pas utiliser la catégorie fiscale '%(classification_name)s' car "
+"vous n'êtes pas membre du groupe suivant '%(group_name)s'."
 
 #. module: account_product_fiscal_classification
 #. odoo-python

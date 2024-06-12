@@ -50,6 +50,14 @@ class AccountProductFiscalClassificationTemplate(models.Model):
         "]",
     )
 
+    usage_group_id = fields.Many2one(
+        comodel_name="res.groups",
+        string="Usage Group",
+        help="If defined"
+        ", the user should be member to this group, to use this fiscal"
+        " classification when creating or updating products",
+    )
+
     def _prepare_fiscal_classification(self, company, taxes_ref):
         """Prepare fiscal classification values
         :param company: company the wizard is running for
@@ -70,4 +78,5 @@ class AccountProductFiscalClassificationTemplate(models.Model):
             "description": self.description,
             "purchase_tax_ids": [(6, 0, purchase_tax_ids)],
             "sale_tax_ids": [(6, 0, sale_tax_ids)],
+            "usage_group_id": self.usage_group_id.id,
         }

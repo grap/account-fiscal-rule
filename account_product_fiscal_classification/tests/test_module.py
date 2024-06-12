@@ -2,6 +2,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
@@ -53,9 +54,9 @@ class Tests(TransactionCase):
             "account_product_fiscal_classification.category_wine"
         )
 
-        # # Group to create product
+        # Group to create product
         # self.product_group = self.env.ref("account.group_account_manager")
-        # self.restricted_group = self.env.ref("base.group_system")
+        self.restricted_group = self.env.ref("base.group_system")
 
     # Test Section
     def test_01_change_classification(self):
@@ -108,6 +109,31 @@ class Tests(TransactionCase):
         """Test if unlinking a Fiscal Classification with products fails."""
         with self.assertRaises(ValidationError):
             self.fiscal_classification_A_company_1.unlink()
+
+    def test_07_access_restriction_fiscal_classification(self):
+        # # Give access to user to create product
+        # self.product_group.users = [self.user_demo.id]
+        # Create a product should success with an normal classification
+        self._create_product(
+            self.user_demo, self.category_all, self.fiscal_classification_A_company_1
+        )
+
+        # Restrict access to the classification
+        self.fiscal_classification_A_company_1.usage_group_id = self.restricted_group
+        # Create a product should fail with a restricted classification
+        with self.assertRaises(ValidationError):
+            self._create_product(
+                self.user_demo,
+                self.category_all,
+                self.fiscal_classification_A_company_1,
+            )
+
+        # Give access to the user
+        self.restricted_group.users = [Command.link(self.user_demo.id)]
+        # Create a product should success with classification
+        self._create_product(
+            self.user_demo, self.category_all, self.fiscal_classification_A_company_1
+        )
 
     def test_10_chart_template(self):
         """Test if installing new CoA creates correct classification"""

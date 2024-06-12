@@ -33,10 +33,12 @@ class ProductTemplate(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             self._update_vals_fiscal_classification(vals)
+            self._check_access_fiscal_classification(vals)
         return super().create(vals_list)
 
     def write(self, vals):
         self._update_vals_fiscal_classification(vals)
+        self._check_access_fiscal_classification(vals)
         res = super().write(vals)
         return res
 
@@ -87,3 +89,22 @@ class ProductTemplate(models.Model):
     @api.constrains("categ_id", "fiscal_classification_id")
     def _check_rules_fiscal_classification(self):
         self.env["account.product.fiscal.rule"].check_product_templates_integrity(self)
+
+    @api.model
+    def _check_access_fiscal_classification(self, vals):
+        FiscalClassification = self.env["account.product.fiscal.classification"]
+        if vals.get("fiscal_classification_id", False):
+            classification = FiscalClassification.browse(
+                vals["fiscal_classification_id"]
+            )
+            group = classification.usage_group_id
+            if group and group.id not in self.env.user.groups_id.ids:
+                raise ValidationError(
+                    _(
+                        "You can not use the fiscal classification"
+                        " '%(classification_name)s' because"
+                        " you're not member of the group '%(group_name)s'.",
+                        classification_name=classification.name,
+                        group_name=group.name,
+                    )
+                )
